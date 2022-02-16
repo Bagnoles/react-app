@@ -32,6 +32,25 @@
 ul {
   list-style-type: none;
 }
+.messenger {
+  height: 500px;
+  min-width: 300px;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: auto;
+}
+.message-wrp {
+  display: flex;
+}
+.author {
+  font-size: 12px;
+  margin-left: 10px;
+}
+.text {
+  font-size: 20px;
+}
 
 @keyframes App-logo-spin {
   from {

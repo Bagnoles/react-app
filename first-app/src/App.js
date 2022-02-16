@@ -15,40 +15,45 @@ function App() {
     ];
 
     const [messageList, setMessageList] = useState(testMessages);
-    const [textMessage, setTextMessage] = useState("");
+    const [value, setValue] = useState("");
 
     const updateTextMessage = (event) => {
-        setTextMessage(event.target.value);
+        setValue(event.target.value);
     }
 
     const updateMessageList = () => {
-        setMessageList(messageList => [...messageList, {text: textMessage, author: "user"}]);
+        setMessageList(messageList => [...messageList, {text: value, author: "user"}]);
+        setValue("");
     }
 
     useEffect(() => {
+        let timer;
         if (messageList[messageList.length - 1].author === "user") {
-            setTimeout(() => {
+            timer = setTimeout(() => {
                 setMessageList(messageList => [...messageList, {text: "text", author: "robot"}]);
-            }, 5000);
+            }, 2000);
+        }
+
+        return () => {
+            clearTimeout(timer);
         }
     }, [messageList]);
+
 
     return (
         <div className="App">
             <header className="App-header">
-                <h4>App component</h4>
-                <p>First react app</p>
-                <ul>
+                <h4>Messenger</h4>
+                <ul className="messenger">
                     {messageList.map((message) => (
-                            <li>
-                                text: {message.text} <br/>
-                                author: {message.author}
-                                <hr/>
+                            <li className="message-wrp">
+                                <p className="author">{message.author}</p>
+                                <p className="text">{message.text}</p>
                             </li>
                         )
                     )}
                 </ul>
-                <textarea name="message" cols="30" rows="5" value={textMessage} onChange={updateTextMessage}>Введите сообщение...</textarea>
+                <textarea name="message" cols="30" rows="3" value={value} onChange={updateTextMessage}>Введите сообщение...</textarea>
                 <button onClick={updateMessageList}>Отправить сообщение</button>
             </header>
         </div>
