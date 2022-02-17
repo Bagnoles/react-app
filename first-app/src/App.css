@@ -45,11 +45,18 @@ ul {
   display: flex;
 }
 .author {
+  margin-right: 15px;
   font-size: 12px;
-  margin-left: 10px;
 }
 .text {
   font-size: 20px;
+}
+.btn-wrp {
+  display: flex;
+}
+.messenger-wrp {
+  display: flex;
+  align-items: center;
 }
 
 @keyframes App-logo-spin {
