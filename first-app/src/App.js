@@ -6,17 +6,18 @@ import SendIcon from '@mui/icons-material/Send';
 import PersonIcon from '@mui/icons-material/Person';
 import AndroidIcon from '@mui/icons-material/Android';
 import React from "react";
+import {AUTHORS} from "./constants/common";
 
 
 function App() {
     const testMessages = [
         {
             text: "first",
-            author: "user"
+            author: AUTHORS.user
         },
         {
             text: "last",
-            author: "robot"
+            author: AUTHORS.bot
         }
     ];
 
@@ -29,16 +30,16 @@ function App() {
 
     const updateMessageList = () => {
         if (value !== "") {
-            setMessageList(messageList => [...messageList, {text: value, author: "user"}]);
+            setMessageList(messageList => [...messageList, {text: value, author: AUTHORS.user}]);
             setValue("");
         }
     }
 
     useEffect(() => {
         let timer;
-        if (messageList[messageList.length - 1].author === "user") {
+        if (messageList[messageList.length - 1].author === AUTHORS.user) {
             timer = setTimeout(() => {
-                setMessageList(messageList => [...messageList, {text: "text", author: "robot"}]);
+                setMessageList(messageList => [...messageList, {text: "text", author: AUTHORS.bot}]);
             }, 2000);
         }
 
@@ -90,7 +91,7 @@ function App() {
                         <ul className="messenger">
                             {messageList.map((message, index) => (
                                     <li className="message-wrp" key={index}>
-                                        <PersonIcon/>
+                                        {message.author === AUTHORS.user ? <PersonIcon/> : <AndroidIcon/>}
                                         <p className="author">{message.author}</p>
                                         <p className="text">{message.text}</p>
                                     </li>
