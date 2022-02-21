@@ -1,16 +1,23 @@
 import './App.css';
 import {useEffect, useState} from "react";
+import {Avatar, Button, List, ListItem, ListItemAvatar, ListItemText, Paper, styled, TextField} from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
+
+import PersonIcon from '@mui/icons-material/Person';
+import AndroidIcon from '@mui/icons-material/Android';
+import React from "react";
+import {AUTHORS} from "./constants/common";
 
 
 function App() {
     const testMessages = [
         {
             text: "first",
-            author: "user"
+            author: AUTHORS.user
         },
         {
             text: "last",
-            author: "robot"
+            author: AUTHORS.bot
         }
     ];
 
@@ -22,15 +29,17 @@ function App() {
     }
 
     const updateMessageList = () => {
-        setMessageList(messageList => [...messageList, {text: value, author: "user"}]);
-        setValue("");
+        if (value !== "") {
+            setMessageList(messageList => [...messageList, {text: value, author: AUTHORS.user}]);
+            setValue("");
+        }
     }
 
     useEffect(() => {
         let timer;
-        if (messageList[messageList.length - 1].author === "user") {
+        if (messageList[messageList.length - 1].author === AUTHORS.user) {
             timer = setTimeout(() => {
-                setMessageList(messageList => [...messageList, {text: "text", author: "robot"}]);
+                setMessageList(messageList => [...messageList, {text: "text", author: AUTHORS.bot}]);
             }, 2000);
         }
 
@@ -39,22 +48,70 @@ function App() {
         }
     }, [messageList]);
 
+    function generate(element) {
+        return [0, 1, 2].map((value) =>
+            React.cloneElement(element, {
+                key: value,
+            }),
+        );
+    }
+
+    const Demo = styled('div')(({theme}) => ({
+        backgroundColor: '#212632',
+    }));
+    const [dense, setDense] = React.useState(false);
+    const [secondary, setSecondary] = React.useState(false);
+
 
     return (
         <div className="App">
             <header className="App-header">
                 <h4>Messenger</h4>
-                <ul className="messenger">
-                    {messageList.map((message) => (
-                            <li className="message-wrp">
-                                <p className="author">{message.author}</p>
-                                <p className="text">{message.text}</p>
-                            </li>
-                        )
-                    )}
-                </ul>
-                <textarea name="message" cols="30" rows="3" value={value} onChange={updateTextMessage}>Введите сообщение...</textarea>
-                <button onClick={updateMessageList}>Отправить сообщение</button>
+                <div className="messenger-wrp">
+                    <div className="messages-list">
+                        <Demo>
+                            <List dense={dense}>
+                                {generate(
+                                    <ListItem>
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                <PersonIcon/>
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            primary="Single-line item"
+                                            secondary={secondary ? 'Secondary text' : null}
+                                        />
+                                    </ListItem>,
+                                )}
+                            </List>
+                        </Demo>
+                    </div>
+                    <div>
+                        <ul className="messenger">
+                            {messageList.map((message, index) => (
+                                    <li className="message-wrp" key={index}>
+                                        {message.author === AUTHORS.user ? <PersonIcon/> : <AndroidIcon/>}
+                                        <p className="author">{message.author}</p>
+                                        <p className="text">{message.text}</p>
+                                    </li>
+                                )
+                            )}
+                        </ul>
+
+                        <div className="btn-wrp">
+                        <TextField
+                            id="outlined-basic"
+                            label="Write message"
+                            autoFocus
+                            value={value}
+                            onChange={updateTextMessage}/>
+                        <Button variant="contained" endIcon={<SendIcon/>} onClick={updateMessageList}>
+                            Send
+                        </Button>
+                        </div>
+                    </div>
+                </div>
             </header>
         </div>
     );
