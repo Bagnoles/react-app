@@ -5,7 +5,7 @@ import App from './App';
 import {createTheme} from "@mui/material";
 import {orange} from "@mui/material/colors";
 import {ThemeProvider} from "@emotion/react";
-
+import {BrowserRouter} from "react-router-dom";
 
 
 const theme = createTheme({
@@ -21,7 +21,9 @@ const theme = createTheme({
 ReactDOM.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
-            <App/>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
         </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')
