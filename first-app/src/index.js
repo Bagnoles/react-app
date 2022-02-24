@@ -6,6 +6,8 @@ import {createTheme} from "@mui/material";
 import {orange} from "@mui/material/colors";
 import {ThemeProvider} from "@emotion/react";
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import store from "./store";
 
 
 const theme = createTheme({
@@ -20,11 +22,13 @@ const theme = createTheme({
 
 ReactDOM.render(
     <React.StrictMode>
+        <Provider store={store}>
         <ThemeProvider theme={theme}>
             <BrowserRouter>
                 <App/>
             </BrowserRouter>
         </ThemeProvider>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );
