@@ -1,6 +1,6 @@
 
 
-function Profile() {
+const Profile = () => {
     return <div>User's profile</div>
 }
 

@@ -4,7 +4,7 @@ import React from "react";
 
 
 
-function Home() {
+const Home = () => {
     return (
         <div>Welcome to our messenger!</div>
     )

@@ -10,7 +10,7 @@ import {List, ListItem} from "@mui/material";
 import Chats from "./pages/Chats";
 
 
-function App() {
+const App = () => {
 
     return (
         <div className="App">
@@ -22,10 +22,10 @@ function App() {
                     <ListItem><Link to="/profile">Profile</Link></ListItem>
                 </List>
                 <Routes>
+                    <Route path="/" exact element={<Home/>}/>
                     <Route path="/chats/:chatId" element={<Chats/>}/>
                     <Route path="/chats" element={<Chats/>}/>
                     <Route path="/profile" element={<Profile/>}/>
-                    <Route path="/" element={<Home/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
 

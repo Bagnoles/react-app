@@ -8,11 +8,11 @@ import React, {useEffect, useState} from "react";
 
 const Messenger = (props) => {
     const { messages } = props;
-    console.log(messages);
+
 
     const [messageList, setMessageList] = useState(messages);
     const [value, setValue] = useState("");
-    console.log(messageList);
+
     const updateTextMessage = (event) => {
         setValue(event.target.value);
     }
