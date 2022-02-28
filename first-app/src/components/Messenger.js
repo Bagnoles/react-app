@@ -7,7 +7,7 @@ import React, {useEffect, useState} from "react";
 
 
 const Messenger = (props) => {
-    const { messages } = props;
+    const {messages} = props;
 
 
     const [messageList, setMessageList] = useState(messages);
@@ -36,6 +36,10 @@ const Messenger = (props) => {
             clearTimeout(timer);
         }
     }, [messageList]);
+
+    useEffect(() => {
+        setMessageList(messages);
+    }, [messages]);
 
     return (
         <>
