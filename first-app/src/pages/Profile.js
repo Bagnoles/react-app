@@ -5,7 +5,7 @@ import {Checkbox} from "@mui/material";
 
 
 const Profile = () => {
-    const { showName, name } = useSelector((state) => state);
+    const { showName, name } = useSelector((state) => state.profile);
     const dispatch = useDispatch();
 
     const setShowName = useCallback(() => {

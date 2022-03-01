@@ -7,7 +7,7 @@ import NotFound from "./NotFound";
 
 
 const Chats = () => {
-
+/*
     const initialChats = {
         id1: {
             name: 'Chat 1',
@@ -43,15 +43,15 @@ const Chats = () => {
                 <ChatList chats={chats}/>
             </div>);
     }
-
+*/
 
     return (
         <div className="messenger-wrp">
             <div>
-                <ChatList chats={chats}/>
+                <ChatList />
             </div>
             <div>
-                <Messenger messages={chats[chatId].messages}/>
+                <Messenger />
             </div>
         </div>
     )
