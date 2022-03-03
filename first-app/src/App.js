@@ -6,7 +6,7 @@ import {Routes, Route, Link} from "react-router-dom";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
-import {List, ListItem} from "@mui/material";
+import {List, ListItem, ListItemText} from "@mui/material";
 import Chats from "./pages/Chats";
 
 
@@ -16,7 +16,7 @@ const App = () => {
         <div className="App">
             <header className="App-header">
                 <h4>Messenger</h4>
-                <List sx={{ display: 'flex', fontSize: '24px' }}>
+                <List sx={{ display: 'flex', fontSize: '24px'}}>
                     <ListItem><Link to="/">Home</Link></ListItem>
                     <ListItem><Link to="/chats">Chats</Link></ListItem>
                     <ListItem><Link to="/profile">Profile</Link></ListItem>

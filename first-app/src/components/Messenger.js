@@ -4,13 +4,18 @@ import AndroidIcon from "@mui/icons-material/Android";
 import {Button, TextField} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import {addMessage} from "../store/messages/actions";
 
 
-const Messenger = (props) => {
-    const {messages} = props;
+const Messenger = () => {
 
-
-    const [messageList, setMessageList] = useState(messages);
+    const {chatId} = useParams();
+    const { messageList } = useSelector(state => state.messages);
+    const { name } = useSelector((state) => state.profile);
+    const messagesChat = messageList[chatId];
+    const dispatch = useDispatch();
     const [value, setValue] = useState("");
 
     const updateTextMessage = (event) => {
@@ -19,34 +24,33 @@ const Messenger = (props) => {
 
     const updateMessageList = () => {
         if (value !== "") {
-            setMessageList(messageList => [...messageList, {text: value, author: AUTHORS.user}]);
+            dispatch(addMessage(chatId, {text: value, author: name}))
             setValue("");
         }
     }
 
     useEffect(() => {
         let timer;
-        if (messageList[messageList.length - 1].author === AUTHORS.user) {
-            timer = setTimeout(() => {
-                setMessageList(messageList => [...messageList, {text: "text", author: AUTHORS.bot}]);
+        if (messagesChat?.length > 0 && messagesChat[messagesChat.length - 1]?.author === name) {
+            timer = setInterval(() => {
+                const message = {
+                    text: "Hello!!!",
+                    author: AUTHORS.bot
+                }
+                dispatch(addMessage(chatId, message));
             }, 2000);
         }
-
         return () => {
             clearTimeout(timer);
         }
-    }, [messageList]);
-
-    useEffect(() => {
-        setMessageList(messages);
-    }, [messages]);
+    }, [dispatch, name, chatId, messagesChat]);
 
     return (
         <>
             <ul className="messenger">
-                {messageList?.map((message, index) => (
-                        <li className="message-wrp" key={index}>
-                            {message.author === AUTHORS.user ? <PersonIcon/> : <AndroidIcon/>}
+                {messagesChat?.map((message) => (
+                        <li className="message-wrp" key={message.id}>
+                            {message.author !== AUTHORS.bot ? <PersonIcon/> : <AndroidIcon/>}
                             <p className="author">{message.author}</p>
                             <p className="text">{message.text}</p>
                         </li>
