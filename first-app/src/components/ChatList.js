@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import {Link} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addChat, deleteChat} from "../store/chats/actions";
 import DeleteIcon from '@mui/icons-material/Delete';
