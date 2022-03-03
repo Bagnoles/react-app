@@ -11,7 +11,7 @@ import {
     styled, TextField
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addChat, deleteChat} from "../store/chats/actions";
@@ -19,11 +19,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const ChatList = () => {
-  //  const {chatId} = useParams();
-  //  const {chats} = props;
+
     const { chatList } = useSelector(state => state.chats);
     const dispatch = useDispatch();
-
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
@@ -43,9 +41,6 @@ const ChatList = () => {
     const handlerChatName = (event) => {
         setValue(event.target.value);
     }
-    useEffect(() => {
-        console.log('delete')
-    }, [dispatch, chatList])
 
     const Demo = styled('div')(({theme}) => ({
         backgroundColor: '#212632',
@@ -55,7 +50,7 @@ const ChatList = () => {
         <>
         <Demo>
             <List>
-                {chatList?.map((chat) => (
+                {chatList?.map((chat, index) => (
                     <ListItem key={chat.id}>
                         <ListItemAvatar>
                             <Avatar>
@@ -65,8 +60,9 @@ const ChatList = () => {
                         <Link to={`/chats/${chat.id}`}>
                             <ListItemText
                                 primary={chat.name}
+                                sx={{ color: '#028E9B'}}
                             /></Link>
-                        <IconButton aria-label="delete" onClick={() => dispatch(deleteChat(chat.id))}>
+                        <IconButton aria-label="delete" onClick={() => dispatch(deleteChat(index))}>
                             <DeleteIcon />
                         </IconButton>
                     </ListItem>

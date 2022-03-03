@@ -23,9 +23,15 @@ const chatsReducer = (state = initialState, action) => {
                 ]
             }
         case DELETE_CHAT:
-            const index = +action.payload.slice(-1);
-            delete state.chatList[index];
-            return state;
+
+            return {
+                ...state,
+                chatList: [
+                    ...state.chatList.slice(0, action.payload),
+                    ...state.chatList.slice(action.payload + 1)
+                ]
+            }
+
 
         default:
             return state;

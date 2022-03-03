@@ -10,14 +10,12 @@ import {addMessage} from "../store/messages/actions";
 
 
 const Messenger = () => {
-    // const {messages} = props;
+
     const {chatId} = useParams();
     const { messageList } = useSelector(state => state.messages);
     const { name } = useSelector((state) => state.profile);
     const messagesChat = messageList[chatId];
     const dispatch = useDispatch();
-
-   // const [messageList, setMessageList] = useState(messages);
     const [value, setValue] = useState("");
 
     const updateTextMessage = (event) => {
