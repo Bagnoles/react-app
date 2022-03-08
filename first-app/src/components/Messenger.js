@@ -3,10 +3,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import AndroidIcon from "@mui/icons-material/Android";
 import {Button, TextField} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {addMessage} from "../store/messages/actions";
+import {addMessageWithThunk} from "../store/messages/actions";
 
 
 const Messenger = () => {
@@ -24,26 +24,11 @@ const Messenger = () => {
 
     const updateMessageList = () => {
         if (value !== "") {
-            dispatch(addMessage(chatId, {text: value, author: name}))
+            dispatch(addMessageWithThunk(chatId, {text: value, author: name}))
             setValue("");
         }
     }
 
-    useEffect(() => {
-        let timer;
-        if (messagesChat?.length > 0 && messagesChat[messagesChat.length - 1]?.author === name) {
-            timer = setInterval(() => {
-                const message = {
-                    text: "Hello!!!",
-                    author: AUTHORS.bot
-                }
-                dispatch(addMessage(chatId, message));
-            }, 2000);
-        }
-        return () => {
-            clearTimeout(timer);
-        }
-    }, [dispatch, name, chatId, messagesChat]);
 
     return (
         <>
