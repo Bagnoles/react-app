@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 import {List, ListItem} from "@mui/material";
 import Chats from "./pages/Chats";
+import Word from "./pages/Word";
 
 
 const App = () => {
@@ -20,12 +21,14 @@ const App = () => {
                     <ListItem><Link to="/">Home</Link></ListItem>
                     <ListItem><Link to="/chats">Chats</Link></ListItem>
                     <ListItem><Link to="/profile">Profile</Link></ListItem>
+                    <ListItem><Link to="/word">Word</Link></ListItem>
                 </List>
                 <Routes>
                     <Route path="/" exact element={<Home/>}/>
                     <Route path="/chats/:chatId" element={<Chats/>}/>
                     <Route path="/chats" element={<Chats/>}/>
                     <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/word" element={<Word />}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
 

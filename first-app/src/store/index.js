@@ -5,12 +5,14 @@ import messagesReducer from "./messages/reducer";
 import thunk from "redux-thunk";
 import storage from 'redux-persist/lib/storage';
 import {persistReducer, persistStore} from "redux-persist";
+import wordReducer from "./word/reducer";
 
 
 const reducers = combineReducers({
     chats: chatsReducer,
     profile: profileReducer,
-    messages: messagesReducer
+    messages: messagesReducer,
+    word: wordReducer
 })
 
 const persistConfig = {
