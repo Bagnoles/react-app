@@ -3,10 +3,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import AndroidIcon from "@mui/icons-material/Android";
 import {Button, TextField} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {addMessageWithThunk} from "../store/messages/actions";
+import {addMessageWithFB, getMessagesByChatIdWithFB} from "../store/messages/actions";
 
 
 const Messenger = () => {
@@ -24,10 +24,14 @@ const Messenger = () => {
 
     const updateMessageList = () => {
         if (value !== "") {
-            dispatch(addMessageWithThunk(chatId, {text: value, author: name}))
+            dispatch(addMessageWithFB(chatId, {text: value, author: name}))
             setValue("");
         }
     }
+
+    useEffect(() => {
+        dispatch(getMessagesByChatIdWithFB(chatId));
+      }, [chatId]);
 
 
     return (

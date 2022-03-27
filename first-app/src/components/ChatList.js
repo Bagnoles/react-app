@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import {Link} from "react-router-dom";
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addChat, deleteChat} from "../store/chats/actions";
+import {addChatWithFB, deleteChatWithFB, initTrackerWithFB} from "../store/chats/actions";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
@@ -33,7 +33,7 @@ const ChatList = () => {
     };
 
     const addNewChat = () => {
-        dispatch(addChat(value));
+        dispatch(addChatWithFB(value));
         setOpen(false);
         setValue('');
     }
@@ -41,6 +41,10 @@ const ChatList = () => {
     const handlerChatName = (event) => {
         setValue(event.target.value);
     }
+
+    useEffect(()=>{
+        dispatch(initTrackerWithFB());
+      },[]);
 
     const Demo = styled('div')(({theme}) => ({
         backgroundColor: '#212632',
@@ -62,7 +66,7 @@ const ChatList = () => {
                                 primary={chat.name}
                                 sx={{ color: '#028E9B'}}
                             /></Link>
-                        <IconButton aria-label="delete" onClick={() => dispatch(deleteChat(index))}>
+                        <IconButton aria-label="delete" onClick={() => dispatch(deleteChatWithFB(chat.id))}>
                             <DeleteIcon />
                         </IconButton>
                     </ListItem>
