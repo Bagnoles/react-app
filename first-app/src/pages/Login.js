@@ -9,6 +9,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [disabledButton, setDisabledButton] = useState(false);
 
     let navigate = useNavigate();
     let location = useLocation();
@@ -28,7 +29,7 @@ const Login = () => {
     const loginUser = async (e) => {
         e.preventDefault();
         setError('');
-    
+        setDisabledButton(true);
         try {
             await auth.signin({ email, password }, () => {
                 navigate(from, { replace: true });
@@ -60,7 +61,7 @@ const Login = () => {
                     onChange={handlePassword} />
                 <br />
                 {error && <div>{error}</div>}
-                <Button variant="outlined" type="submit">Войти</Button>
+                <Button variant="outlined" type="submit" disabled={disabledButton}>Войти</Button>
             </form>
         </div>
     )
