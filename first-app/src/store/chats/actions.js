@@ -37,9 +37,9 @@ export const deleteChatWithFB = (id) => async () => {
     remove(chatRef).then(res => {
         console.log('Chat Removed', res);
       })
-      remove(messagesRef).then(res => {
+    remove(messagesRef).then(res => {
         console.log('Messages deleted', res);
-      });
+    });
 }
 
 export const initTrackerWithFB = (chatId) => async (dispatch) => {
